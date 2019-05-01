@@ -55,7 +55,7 @@ T=3 #만기
 coupon=[0.027, 0.054, 0.081, 0.108, 0.135, 0.162] #쿠폰
 K=[0.9, 0.9, 0.85, 0.85, 0.80, 0.80] #조기상환율?? 몇 %이상이어야 조기상환이 되는지
 KI=0.50  
-pp=20 #6개월을 몇 번으로 쪼개는지
+pp=50 #6개월을 몇 번으로 쪼개는지
 Nt=6*pp #조기상환기회가 6번 있음. 만기를 몇 번 쪼갤 것인지
 Nx=100 #첫 번째 기초자산을 몇 번 쪼갤 것인지
 Ny=100 #두 번째 기초자산을 몇 번 쪼갤 것인지
@@ -386,10 +386,11 @@ print("ELS 가격은 " , ELS_Price)
 print("KI쳤을 때 ELS가격은", price[Nt,Nx0,Ny0])
 print("KI 안 쳤을 때 ELS가격은", No_price[Nt,Nx0,Ny0])
 print("KI칠 확률", percent_KI)
+#9876.46원..
 
 #%%
 '''Local vol 쓸 때! '''
-#데이터가 없어서.... 임시로 다른 데이터를 넣어서 그런지 시간이  오오오오오오래 걸림
+#
 
 locvol_price1= make_price_locvol(Nt,Nx,Ny)
 locvol_price2= make_price_locvol(Nt,Nx,Ny, True)
@@ -419,6 +420,7 @@ print("ELS 가격은 " , ELS_Price_LV)
 print("KI쳤을 때 ELS가격은", locvol_price2[Nt,Nx0,Ny0])
 print("KI 안 쳤을 때 ELS가격은", locvol_price1[Nt,Nx0,Ny0])
 print("KI칠 확률", percent_KI)
+#locvol 인덱싱 주의.. 가격 
 #%%
 ''' Hedge 수익 보기 '''
 futures=pd.read_excel('futures data modified.xlsx') #Euro와 Hscei지수가 같이 있음...
