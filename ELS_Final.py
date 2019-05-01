@@ -68,20 +68,20 @@ q=0 #배당.. 없음
 option_type = 'put'
 
 #%%
-
 count_simulation=100000
 timestep=Nt+1
 t=np.linspace(0,3,timestep)
 W1=np.random.normal(0,1,(count_simulation,int(timestep)))*np.sqrt(t[1]-t[0])
+W2=(rho*W1)+np.sqrt(1-rho**2)*np.random.normal(0,1,(count_simulation,int(timestep)))*np.sqrt(t[1]-t[0])
 W1[:,0]=0
 W1=W1.cumsum(axis=1)
-W2=np.sqrt(t[1]-t[0])*(rho*np.random.normal(0,1,(count_simulation,int(timestep)))+np.sqrt(1-rho**2)*np.random.normal(0,1,(count_simulation,int(timestep))))
 W2[:,0]=0
 W2=W2.cumsum(axis=1)
 stock1=K0[0]*np.exp((r-(sig1**2)/2)*t+sig1*W1)
 stock2=K0[1]*np.exp((r-(sig2**2)/2)*t+sig2*W2)
 count_KI=((stock1.min(axis=1)<=K0[0]*KI) + (stock2.min(axis=1)<=K0[1]*KI)).sum()
 percent_KI=count_KI/count_simulation #인생동안 낙인 친 확률
+print(pd.concat([pd.DataFrame(W1[:,-1]), pd.DataFrame(W2[:,-1])], axis=1).corr()) #상관관계 확인하기 
 
 #%%
 
